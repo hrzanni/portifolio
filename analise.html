@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Análise CSS — Hugo Zanni</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; color: #2d3748; background: #f7fafc; }
+    .hero-banner { background: linear-gradient(135deg, #0a2233, #0d9488); color: #fff; padding: 60px 0 40px; }
+    .hero-banner h1 { font-weight: 700; font-size: 2.2rem; }
+    .hero-banner p { opacity: 0.85; font-size: 1.05rem; }
+    .section-card { background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,.07); padding: 36px; margin-bottom: 32px; }
+    .section-card h2 { color: #0d9488; font-size: 1.6rem; font-weight: 700; border-bottom: 2px solid #0d9488; padding-bottom: 10px; margin-bottom: 24px; }
+    .section-card h3 { color: #0a2233; font-size: 1.15rem; font-weight: 600; margin-top: 24px; margin-bottom: 10px; }
+    pre { background: #1a1f2e; color: #e2e8f0; border-radius: 8px; padding: 18px; font-size: 0.88rem; overflow-x: auto; margin: 12px 0; }
+    pre .comment { color: #6272a4; }
+    pre .tag { color: #8be9fd; }
+    pre .attr { color: #50fa7b; }
+    pre .value { color: #f1fa8c; }
+    pre .selector { color: #ff79c6; }
+    pre .property { color: #8be9fd; }
+    pre .prop-value { color: #f1fa8c; }
+    .badge-tipo { font-size: 0.78rem; padding: 4px 12px; border-radius: 20px; font-weight: 600; }
+    .badge-html { background: #e53e3e; color: #fff; }
+    .badge-css { background: #3182ce; color: #fff; }
+    .pros-cons table { font-size: 0.9rem; }
+    .example-visual { background: #edf2f7; border-radius: 8px; padding: 16px; margin: 10px 0; border-left: 4px solid #0d9488; }
+    .selector-block { background: #f0fff4; border-radius: 8px; padding: 18px; border-left: 4px solid #38a169; margin-bottom: 18px; }
+    .selector-block h4 { color: #276749; font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    footer { background: #0a2233; color: #a0aec0; text-align: center; padding: 24px; margin-top: 40px; }
+    .toc a { color: #0d9488; text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .nav-pills .nav-link.active { background-color: #0d9488; }
+    .nav-pills .nav-link { color: #0d9488; }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <div class="hero-banner">
+    <div class="container">
+      <h1><i class="bi bi-file-earmark-code me-2"></i>Análise: Introdução ao CSS</h1>
+      <p class="mb-1"><strong>Aluno:</strong> Hugo Zanni &nbsp;|&nbsp; <strong>Curso:</strong> Sistemas de Informação — USP</p>
+      <p class="mb-0"><strong>Disciplina:</strong> Desenvolvimento Web/Mobile &nbsp;|&nbsp; <strong>Data:</strong> 27/04/2026</p>
+    </div>
+  </div>
+
+  <div class="container py-4">
+
+    <!-- Sumário -->
+    <div class="section-card toc">
+      <h2>Sumário</h2>
+      <ol>
+        <li><a href="#q1">Diferença entre HTML e CSS</a></li>
+        <li><a href="#q2">Exemplos de Propriedades CSS</a></li>
+        <li><a href="#q3">Três Formas de Aplicar CSS</a></li>
+        <li><a href="#q4">Identificação de Seletores no Template iPortfolio</a></li>
+      </ol>
+    </div>
+
+    <!-- QUESTÃO 1 -->
+    <div class="section-card" id="q1">
+      <h2>1. Diferença entre HTML e CSS</h2>
+
+      <h3>O que é HTML?</h3>
+      <p>
+        <span class="badge-tipo badge-html">HTML</span>
+        <strong> HyperText Markup Language</strong> é a linguagem de marcação responsável pela
+        <strong>estrutura e o conteúdo</strong> de uma página web. Com HTML, definimos o que existe na
+        página: títulos, parágrafos, imagens, links, tabelas, formulários, etc. Cada elemento é representado
+        por uma <em>tag</em>.
+      </p>
+      <pre><span class="comment">&lt;!-- Exemplo: estrutura HTML básica --&gt;</span>
+<span class="tag">&lt;h1&gt;</span>Título Principal<span class="tag">&lt;/h1&gt;</span>
+<span class="tag">&lt;p&gt;</span>Este é um parágrafo de texto.<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="value">"foto.jpg"</span> <span class="attr">alt</span>=<span class="value">"Minha foto"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="value">"contato.html"</span><span class="tag">&gt;</span>Ir para Contato<span class="tag">&lt;/a&gt;</span></pre>
+
+      <h3>O que é CSS?</h3>
+      <p>
+        <span class="badge-tipo badge-css">CSS</span>
+        <strong> Cascading Style Sheets</strong> é a linguagem de estilos responsável pela
+        <strong>aparência e apresentação visual</strong> dos elementos HTML. Com CSS, controlamos cores,
+        fontes, tamanhos, espaçamentos, layouts e animações.
+      </p>
+      <pre><span class="comment">/* Exemplo: CSS estilizando o título acima */</span>
+<span class="selector">h1</span> {
+  <span class="property">color</span>: <span class="prop-value">#0d9488</span>;
+  <span class="property">font-size</span>: <span class="prop-value">2rem</span>;
+  <span class="property">text-align</span>: <span class="prop-value">center</span>;
+}</pre>
+
+      <h3>Como funcionam juntos?</h3>
+      <p>
+        HTML e CSS se complementam: HTML cria o "esqueleto" da página (o quê existe), e CSS define o
+        "visual" (como aparece). O navegador lê o HTML para construir a estrutura e, em seguida, aplica as
+        regras CSS para renderizar o estilo final.
+      </p>
+      <div class="example-visual">
+        <strong>Analogia:</strong> Se uma página web fosse uma casa, o HTML seria a planta e a construção
+        (paredes, portas, janelas) e o CSS seria a decoração e pintura (cores, móveis, iluminação).
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <div style="background:#fff5f5; border-radius:8px; padding:16px;">
+            <strong style="color:#e53e3e;">HTML define:</strong>
+            <ul class="mt-2 mb-0">
+              <li>Estrutura da página</li>
+              <li>Hierarquia do conteúdo</li>
+              <li>Semântica (o que cada parte significa)</li>
+              <li>Elementos: títulos, textos, imagens, links...</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6 mt-3 mt-md-0">
+          <div style="background:#ebf8ff; border-radius:8px; padding:16px;">
+            <strong style="color:#3182ce;">CSS define:</strong>
+            <ul class="mt-2 mb-0">
+              <li>Cores e fundos</li>
+              <li>Tipografia (fonte, tamanho, peso)</li>
+              <li>Espaçamentos (margin, padding)</li>
+              <li>Layout (Flexbox, Grid) e animações</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUESTÃO 2 -->
+    <div class="section-card" id="q2">
+      <h2>2. Exemplos de Propriedades CSS</h2>
+
+      <!-- color -->
+      <div class="selector-block">
+        <h4><i class="bi bi-palette me-2"></i>Propriedade: <code>color</code></h4>
+        <p><strong>O que faz:</strong> Define a cor do texto de um elemento.</p>
+        <p><strong>Como afeta:</strong> Altera a cor das letras/texto exibido na tela. Aceita valores em nome de cor, hexadecimal, RGB e HSL.</p>
+        <pre><span class="selector">h1</span> {
+  <span class="property">color</span>: <span class="prop-value">#0d9488</span>;      <span class="comment">/* Hexadecimal */</span>
+}
+
+<span class="selector">p</span> {
+  <span class="property">color</span>: <span class="prop-value">rgb(45, 55, 72)</span>; <span class="comment">/* RGB */</span>
+}
+
+<span class="selector">a:hover</span> {
+  <span class="property">color</span>: <span class="prop-value">tomato</span>;          <span class="comment">/* Nome de cor */</span>
+}</pre>
+        <div class="example-visual">
+          <strong>Visual:</strong> O texto do título aparece em verde-teal, o parágrafo em cinza escuro,
+          e links ao passar o mouse ficam vermelhos.
+        </div>
+      </div>
+
+      <!-- font-size -->
+      <div class="selector-block">
+        <h4><i class="bi bi-type me-2"></i>Propriedade: <code>font-size</code></h4>
+        <p><strong>O que faz:</strong> Define o tamanho da fonte de um elemento.</p>
+        <p><strong>Como afeta:</strong> Controla quão grande o texto aparece. Pode usar unidades absolutas (px) ou relativas (rem, em, %).</p>
+        <pre><span class="selector">body</span> {
+  <span class="property">font-size</span>: <span class="prop-value">16px</span>;    <span class="comment">/* Tamanho base */</span>
+}
+
+<span class="selector">h1</span> {
+  <span class="property">font-size</span>: <span class="prop-value">2.5rem</span>;  <span class="comment">/* 2.5x o tamanho base = 40px */</span>
+}
+
+<span class="selector">.caption</span> {
+  <span class="property">font-size</span>: <span class="prop-value">0.85em</span>;  <span class="comment">/* 85% do elemento pai */</span>
+}</pre>
+        <div class="example-visual">
+          <strong>Visual:</strong> Títulos aparecem grandes e proeminentes, enquanto legendas aparecem
+          menores que o texto normal, criando hierarquia visual.
+        </div>
+      </div>
+
+      <!-- margin -->
+      <div class="selector-block">
+        <h4><i class="bi bi-arrows-expand me-2"></i>Propriedade: <code>margin</code></h4>
+        <p><strong>O que faz:</strong> Controla o espaçamento externo ao redor de um elemento (fora da borda).</p>
+        <p><strong>Como afeta:</strong> Cria espaço entre elementos, afastando-os uns dos outros na página.</p>
+        <pre><span class="selector">.card</span> {
+  <span class="property">margin</span>: <span class="prop-value">20px</span>;              <span class="comment">/* 20px em todos os lados */</span>
+}
+
+<span class="selector">.hero-title</span> {
+  <span class="property">margin-top</span>: <span class="prop-value">0</span>;
+  <span class="property">margin-bottom</span>: <span class="prop-value">16px</span>;    <span class="comment">/* Apenas embaixo */</span>
+}
+
+<span class="selector">.container</span> {
+  <span class="property">margin</span>: <span class="prop-value">0 auto</span>;           <span class="comment">/* Centraliza horizontalmente */</span>
+}</pre>
+        <div class="example-visual">
+          <strong>Visual:</strong> Cards têm espaço entre si. O título da seção tem espaço abaixo para
+          separar do conteúdo. O container é centralizado na página.
+        </div>
+      </div>
+    </div>
+
+    <!-- QUESTÃO 3 -->
+    <div class="section-card" id="q3">
+      <h2>3. Três Formas de Aplicar CSS</h2>
+
+      <!-- Tabs -->
+      <ul class="nav nav-pills mb-4" id="cssTab">
+        <li class="nav-item">
+          <a class="nav-link active" href="#inline-section" onclick="showTab('inline')">CSS Inline</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#interno-section" onclick="showTab('interno')">CSS Interno</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#externo-section" onclick="showTab('externo')">CSS Externo</a>
+        </li>
+      </ul>
+
+      <!-- CSS Inline -->
+      <div id="inline-section">
+        <h3>1. CSS Inline (Na linha)</h3>
+        <p><strong>Como funciona:</strong> O CSS é escrito diretamente dentro do atributo <code>style</code> de um elemento HTML. As propriedades se aplicam apenas àquele elemento específico.</p>
+        <pre><span class="comment">&lt;!-- Exemplo de CSS Inline --&gt;</span>
+<span class="tag">&lt;h1</span> <span class="attr">style</span>=<span class="value">"color: #0d9488; font-size: 2rem; text-align: center;"</span><span class="tag">&gt;</span>
+  Título com Estilo Inline
+<span class="tag">&lt;/h1&gt;</span>
+
+<span class="tag">&lt;p</span> <span class="attr">style</span>=<span class="value">"margin: 0; background-color: #f0fff4; padding: 10px;"</span><span class="tag">&gt;</span>
+  Parágrafo com fundo verde claro.
+<span class="tag">&lt;/p&gt;</span></pre>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <div style="background:#f0fff4; border-radius:8px; padding:14px;">
+              <strong style="color:#276749;">Vantagens:</strong>
+              <ul class="mt-1 mb-0 small">
+                <li>Aplicação imediata e específica</li>
+                <li>Alta especificidade (sobrescreve outras regras)</li>
+                <li>Útil para testes rápidos ou estilos únicos</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6 mt-3 mt-md-0">
+            <div style="background:#fff5f5; border-radius:8px; padding:14px;">
+              <strong style="color:#c53030;">Desvantagens:</strong>
+              <ul class="mt-1 mb-0 small">
+                <li>Mistura estrutura e estilo no mesmo arquivo</li>
+                <li>Dificulta manutenção (necessário editar cada tag)</li>
+                <li>Não é reutilizável</li>
+                <li>Não respeita o princípio de separação de responsabilidades</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <!-- CSS Interno -->
+      <div id="interno-section">
+        <h3>2. CSS Interno (Embedded / Incorporado)</h3>
+        <p><strong>Como funciona:</strong> O CSS é escrito dentro de um bloco <code>&lt;style&gt;</code> no <code>&lt;head&gt;</code> do documento HTML. As regras se aplicam a toda a página.</p>
+        <pre><span class="comment">&lt;!-- Exemplo: CSS Interno no &lt;head&gt; --&gt;</span>
+<span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;style&gt;</span>
+    <span class="selector">body</span> {
+      <span class="property">font-family</span>: <span class="prop-value">Arial, sans-serif</span>;
+      <span class="property">background-color</span>: <span class="prop-value">#f7fafc</span>;
+    }
+
+    <span class="selector">h1</span> {
+      <span class="property">color</span>: <span class="prop-value">#0d9488</span>;
+      <span class="property">text-align</span>: <span class="prop-value">center</span>;
+    }
+
+    <span class="selector">.destaque</span> {
+      <span class="property">background</span>: <span class="prop-value">yellow</span>;
+      <span class="property">padding</span>: <span class="prop-value">4px 8px</span>;
+    }
+  <span class="tag">&lt;/style&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+  <span class="tag">&lt;h1&gt;</span>Título Estilizado<span class="tag">&lt;/h1&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Texto com <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="value">"destaque"</span><span class="tag">&gt;</span>palavra destacada<span class="tag">&lt;/span&gt;</span>.<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></pre>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <div style="background:#f0fff4; border-radius:8px; padding:14px;">
+              <strong style="color:#276749;">Vantagens:</strong>
+              <ul class="mt-1 mb-0 small">
+                <li>Tudo em um único arquivo (fácil compartilhar)</li>
+                <li>Permite uso de seletores e reutilização dentro da página</li>
+                <li>Adequado para páginas únicas ou protótipos</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6 mt-3 mt-md-0">
+            <div style="background:#fff5f5; border-radius:8px; padding:14px;">
+              <strong style="color:#c53030;">Desvantagens:</strong>
+              <ul class="mt-1 mb-0 small">
+                <li>Não é compartilhável entre múltiplas páginas</li>
+                <li>Aumenta o tamanho do arquivo HTML</li>
+                <li>Dificulta manutenção em projetos grandes</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <!-- CSS Externo -->
+      <div id="externo-section">
+        <h3>3. CSS Externo (Arquivo separado)</h3>
+        <p><strong>Como funciona:</strong> O CSS é escrito em um arquivo separado (<code>.css</code>) e vinculado ao HTML via tag <code>&lt;link&gt;</code> no <code>&lt;head&gt;</code>. <strong>Esta é a forma mais recomendada</strong> para projetos reais.</p>
+        <pre><span class="comment">&lt;!-- No arquivo index.html --&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="value">"stylesheet"</span> <span class="attr">href</span>=<span class="value">"assets/css/main.css"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="value">"stylesheet"</span> <span class="attr">href</span>=<span class="value">"assets/css/custom.css"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/head&gt;</span></pre>
+        <pre><span class="comment">/* No arquivo assets/css/main.css */</span>
+<span class="selector">body</span> {
+  <span class="property">font-family</span>: <span class="prop-value">Roboto, sans-serif</span>;
+  <span class="property">font-size</span>: <span class="prop-value">16px</span>;
+  <span class="property">color</span>: <span class="prop-value">#272829</span>;
+}
+
+<span class="selector">a</span> {
+  <span class="property">color</span>: <span class="prop-value">var(--accent-color)</span>;
+  <span class="property">text-decoration</span>: <span class="prop-value">none</span>;
+}</pre>
+        <p><em>Exemplo real do arquivo <code>assets/css/main.css</code> do template iPortfolio usado neste portfólio.</em></p>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <div style="background:#f0fff4; border-radius:8px; padding:14px;">
+              <strong style="color:#276749;">Vantagens:</strong>
+              <ul class="mt-1 mb-0 small">
+                <li>Separação clara de responsabilidades (HTML = estrutura, CSS = estilo)</li>
+                <li>Reutilizável em múltiplas páginas</li>
+                <li>Arquivo CSS pode ser cacheado pelo navegador (performance)</li>
+                <li>Facilita manutenção e trabalho em equipe</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6 mt-3 mt-md-0">
+            <div style="background:#fff5f5; border-radius:8px; padding:14px;">
+              <strong style="color:#c53030;">Desvantagens:</strong>
+              <ul class="mt-1 mb-0 small">
+                <li>Requer requisição HTTP extra ao servidor</li>
+                <li>Página pode piscar brevemente (FOUC) antes do CSS carregar</li>
+                <li>Requer organização de arquivos e pastas</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabela comparativa -->
+        <h3 class="mt-4">Comparativo das 3 Formas</h3>
+        <div class="table-responsive pros-cons">
+          <table class="table table-bordered table-hover">
+            <thead style="background:#0d9488; color:#fff;">
+              <tr>
+                <th>Forma</th><th>Onde é escrito</th><th>Escopo</th><th>Recomendado para</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Inline</strong></td>
+                <td>Atributo <code>style=""</code> no elemento</td>
+                <td>Apenas o elemento</td>
+                <td>Ajustes pontuais, e-mails HTML</td>
+              </tr>
+              <tr>
+                <td><strong>Interno</strong></td>
+                <td>Bloco <code>&lt;style&gt;</code> no <code>&lt;head&gt;</code></td>
+                <td>Toda a página</td>
+                <td>Protótipos, páginas únicas</td>
+              </tr>
+              <tr>
+                <td><strong>Externo</strong></td>
+                <td>Arquivo <code>.css</code> separado</td>
+                <td>Múltiplas páginas</td>
+                <td>Projetos reais (mais recomendado)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUESTÃO 4 -->
+    <div class="section-card" id="q4">
+      <h2>4. Identificação de Seletores no Template iPortfolio</h2>
+      <p>
+        Os trechos abaixo foram extraídos diretamente do arquivo <code>assets/css/main.css</code> do
+        template <strong>iPortfolio (BootstrapMade)</strong>, utilizado como base deste portfólio.
+      </p>
+
+      <!-- 4.1 Seletores Simples -->
+      <h3>4.1 Seletores Simples</h3>
+
+      <div class="selector-block">
+        <h4>Seletor de Elemento (Type Selector)</h4>
+        <p>Seleciona todos os elementos HTML de um determinado tipo.</p>
+        <pre><span class="comment">/* Seleciona todos os elementos 'a' (links) */</span>
+<span class="selector">a</span> {
+  <span class="property">color</span>: <span class="prop-value">var(--accent-color)</span>;
+  <span class="property">text-decoration</span>: <span class="prop-value">none</span>;
+  <span class="property">transition</span>: <span class="prop-value">0.3s</span>;
+}</pre>
+      </div>
+
+      <div class="selector-block">
+        <h4>Seletor de Classe (Class Selector)</h4>
+        <p>Seleciona elementos que possuem um determinado atributo <code>class</code>. Prefixado com <code>.</code></p>
+        <pre><span class="comment">/* Seleciona todos os elementos com class="header" */</span>
+<span class="selector">.header</span> {
+  <span class="property">position</span>: <span class="prop-value">fixed</span>;
+  <span class="property">top</span>: <span class="prop-value">0</span>;
+  <span class="property">left</span>: <span class="prop-value">0</span>;
+  <span class="property">width</span>: <span class="prop-value">300px</span>;
+  <span class="property">overflow-y</span>: <span class="prop-value">auto</span>;
+  <span class="property">z-index</span>: <span class="prop-value">997</span>;
+}</pre>
+      </div>
+
+      <div class="selector-block">
+        <h4>Seletor de ID</h4>
+        <p>Seleciona o elemento único com o <code>id</code> especificado. Prefixado com <code>#</code></p>
+        <pre><span class="comment">/* Seleciona o elemento com id="preloader" */</span>
+<span class="selector">#preloader</span> {
+  <span class="property">position</span>: <span class="prop-value">fixed</span>;
+  <span class="property">inset</span>: <span class="prop-value">0</span>;
+  <span class="property">z-index</span>: <span class="prop-value">999999</span>;
+  <span class="property">background</span>: <span class="prop-value">var(--background-color)</span>;
+  <span class="property">transition</span>: <span class="prop-value">all 0.6s ease-out</span>;
+}</pre>
+      </div>
+
+      <div class="selector-block">
+        <h4>Seletor de Grupo (Group Selector)</h4>
+        <p>Aplica o mesmo estilo a múltiplos seletores separados por vírgula.</p>
+        <pre><span class="comment">/* Seleciona h1, h2, h3, h4, h5 e h6 ao mesmo tempo */</span>
+<span class="selector">h1,
+h2,
+h3,
+h4,
+h5,
+h6</span> {
+  <span class="property">color</span>: <span class="prop-value">var(--heading-color)</span>;
+  <span class="property">font-family</span>: <span class="prop-value">var(--heading-font)</span>;
+}</pre>
+      </div>
+
+      <div class="selector-block">
+        <h4>Seletor Universal</h4>
+        <p>Seleciona <em>todos</em> os elementos. Geralmente usado com combinadores ou para reset de estilos.</p>
+        <pre><span class="comment">/* Seletor universal — aparece no CSS gerado pelo Bootstrap, vendored */</span>
+<span class="selector">*,
+*::before,
+*::after</span> {
+  <span class="property">box-sizing</span>: <span class="prop-value">border-box</span>; <span class="comment">/* do bootstrap.min.css incluído */</span>
+}</pre>
+      </div>
+
+      <!-- 4.2 Pseudo-classes -->
+      <h3>4.2 Pseudo-classes</h3>
+
+      <div class="selector-block">
+        <h4><code>:hover</code> — Estado ao passar o mouse</h4>
+        <pre><span class="comment">/* Link muda de cor ao passar o mouse */</span>
+<span class="selector">a:hover</span> {
+  <span class="property">color</span>: <span class="prop-value">color-mix(in srgb, var(--accent-color), transparent 25%)</span>;
+}
+
+<span class="comment">/* Ícone social na sidebar fica colorido ao hover */</span>
+<span class="selector">.header .social-links a:hover</span> {
+  <span class="property">color</span>: <span class="prop-value">var(--contrast-color)</span>;
+  <span class="property">background</span>: <span class="prop-value">var(--accent-color)</span>;
+}</pre>
+      </div>
+
+      <div class="selector-block">
+        <h4><code>:focus</code> — Estado com foco (teclado/clique)</h4>
+        <pre><span class="comment">/* Menu de navegação em foco */</span>
+<span class="selector">.navmenu a,
+.navmenu a:focus</span> {
+  <span class="property">color</span>: <span class="prop-value">var(--nav-color)</span>;
+  <span class="property">padding</span>: <span class="prop-value">15px 10px</span>;
+  <span class="property">font-size</span>: <span class="prop-value">16px</span>;
+  <span class="property">display</span>: <span class="prop-value">flex</span>;
+  <span class="property">align-items</span>: <span class="prop-value">center</span>;
+}
+
+<span class="comment">/* Campo de e-mail do contato em foco fica com borda colorida */</span>
+<span class="selector">.contact .php-email-form input[type=email]:focus</span> {
+  <span class="property">border-color</span>: <span class="prop-value">var(--accent-color)</span>;
+}</pre>
+      </div>
+
+      <div class="selector-block">
+        <h4><code>:last-child</code> — Último filho</h4>
+        <pre><span class="comment">/* Último item do currículo não tem padding inferior */</span>
+<span class="selector">.resume .resume-item:last-child</span> {
+  <span class="property">padding-bottom</span>: <span class="prop-value">0</span>;
+}</pre>
+      </div>
+
+      <!-- 4.3 Combinadores -->
+      <h3>4.3 Combinadores</h3>
+
+      <div class="selector-block">
+        <h4>Combinador Descendente (espaço)</h4>
+        <p>Seleciona elementos que são descendentes (qualquer nível) de outro elemento.</p>
+        <pre><span class="comment">/* Seleciona img dentro de .profile-img dentro de .header */</span>
+<span class="selector">.header .profile-img img</span> {
+  <span class="property">margin</span>: <span class="prop-value">15px auto</span>;
+  <span class="property">display</span>: <span class="prop-value">block</span>;
+  <span class="property">width</span>: <span class="prop-value">120px</span>;
+  <span class="property">border-radius</span>: <span class="prop-value">50%</span>;
+}</pre>
+      </div>
+
+      <div class="selector-block">
+        <h4>Combinador Adjacente (<code>+</code>)</h4>
+        <p>Seleciona o elemento imediatamente após outro elemento irmão.</p>
+        <pre><span class="comment">/* 'li+li' seleciona cada 'li' que vem logo após outro 'li' */</span>
+<span class="selector">.page-title .breadcrumbs ol li+li</span> {
+  <span class="property">padding-left</span>: <span class="prop-value">10px</span>;
+}
+
+<span class="selector">.page-title .breadcrumbs ol li+li::before</span> {
+  <span class="property">content</span>: <span class="prop-value">"/"</span>;
+  <span class="property">display</span>: <span class="prop-value">inline-block</span>;
+  <span class="property">padding-right</span>: <span class="prop-value">10px</span>;
+}</pre>
+      </div>
+
+      <!-- 4.4 Pseudo-elementos -->
+      <h3>4.4 Pseudo-elementos</h3>
+
+      <div class="selector-block">
+        <h4><code>::before</code> — Insere conteúdo antes do elemento</h4>
+        <pre><span class="comment">/* Cria o spinner animado do preloader */</span>
+<span class="selector">#preloader:before</span> {
+  <span class="property">content</span>: <span class="prop-value">""</span>;
+  <span class="property">position</span>: <span class="prop-value">fixed</span>;
+  <span class="property">top</span>: <span class="prop-value">calc(50% - 30px)</span>;
+  <span class="property">left</span>: <span class="prop-value">calc(50% - 30px)</span>;
+  <span class="property">border</span>: <span class="prop-value">6px solid #ffffff</span>;
+  <span class="property">border-color</span>: <span class="prop-value">var(--accent-color) transparent var(--accent-color) transparent</span>;
+  <span class="property">border-radius</span>: <span class="prop-value">50%</span>;
+  <span class="property">width</span>: <span class="prop-value">60px</span>;
+  <span class="property">height</span>: <span class="prop-value">60px</span>;
+  <span class="property">animation</span>: <span class="prop-value">animate-preloader 1.5s linear infinite</span>;
+}</pre>
+      </div>
+
+      <div class="selector-block">
+        <h4><code>::after</code> — Insere conteúdo depois do elemento</h4>
+        <pre><span class="comment">/* Cria a linha decorativa abaixo do título da seção */</span>
+<span class="selector">.section-title h2:after</span> {
+  <span class="property">content</span>: <span class="prop-value">""</span>;
+  <span class="property">position</span>: <span class="prop-value">absolute</span>;
+  <span class="property">display</span>: <span class="prop-value">block</span>;
+  <span class="property">width</span>: <span class="prop-value">50px</span>;
+  <span class="property">height</span>: <span class="prop-value">3px</span>;
+  <span class="property">background</span>: <span class="prop-value">var(--accent-color)</span>;
+  <span class="property">left</span>: <span class="prop-value">0</span>;
+  <span class="property">bottom</span>: <span class="prop-value">0</span>;
+}
+
+<span class="comment">/* Cria o ponto decorativo nos itens do currículo */</span>
+<span class="selector">.resume .resume-item::before</span> {
+  <span class="property">content</span>: <span class="prop-value">""</span>;
+  <span class="property">width</span>: <span class="prop-value">16px</span>;
+  <span class="property">height</span>: <span class="prop-value">16px</span>;
+  <span class="property">border-radius</span>: <span class="prop-value">50px</span>;
+  <span class="property">left</span>: <span class="prop-value">-9px</span>;
+  <span class="property">background</span>: <span class="prop-value">var(--background-color)</span>;
+  <span class="property">border</span>: <span class="prop-value">2px solid var(--accent-color)</span>;
+}</pre>
+      </div>
+
+      <div class="selector-block">
+        <h4><code>::placeholder</code> — Estiliza o texto de placeholder dos inputs</h4>
+        <pre><span class="comment">/* Texto de placeholder nos campos do formulário de contato */</span>
+<span class="selector">.contact .php-email-form input[type=text]::placeholder,
+.contact .php-email-form input[type=email]::placeholder,
+.contact .php-email-form textarea::placeholder</span> {
+  <span class="property">color</span>: <span class="prop-value">color-mix(in srgb, var(--default-color), transparent 70%)</span>;
+}</pre>
+      </div>
+
+      <!-- 4.5 Seletores de Atributo -->
+      <h3>4.5 Seletores de Atributo</h3>
+
+      <div class="selector-block">
+        <h4><code>[type=text]</code> e <code>[type=email]</code> — Seleção por valor de atributo exato</h4>
+        <pre><span class="comment">/* Seleciona inputs com type="text" e type="email" no formulário */</span>
+<span class="selector">.contact .php-email-form input[type=text],
+.contact .php-email-form input[type=email],
+.contact .php-email-form textarea</span> {
+  <span class="property">font-size</span>: <span class="prop-value">14px</span>;
+  <span class="property">padding</span>: <span class="prop-value">10px 15px</span>;
+  <span class="property">box-shadow</span>: <span class="prop-value">none</span>;
+  <span class="property">border-radius</span>: <span class="prop-value">0</span>;
+  <span class="property">color</span>: <span class="prop-value">var(--default-color)</span>;
+  <span class="property">background-color</span>: <span class="prop-value">var(--surface-color)</span>;
+}
+
+<span class="comment">/* Botão de submit */</span>
+<span class="selector">.contact .php-email-form button[type=submit]</span> {
+  <span class="property">color</span>: <span class="prop-value">var(--contrast-color)</span>;
+  <span class="property">background</span>: <span class="prop-value">var(--accent-color)</span>;
+  <span class="property">border-radius</span>: <span class="prop-value">50px</span>;
+  <span class="property">padding</span>: <span class="prop-value">10px 30px</span>;
+}</pre>
+      </div>
+
+      <div class="selector-block">
+        <h4><code>[data-aos-delay]</code> — Seleção pela presença de atributo</h4>
+        <pre><span class="comment">/* Seleciona qualquer elemento que tenha o atributo data-aos-delay */</span>
+<span class="selector">[data-aos-delay]</span> {
+  <span class="comment">/* usado pelo AOS (Animate On Scroll) para atrasar animações */</span>
+}</pre>
+        <p>No HTML do template, este atributo aparece assim:</p>
+        <pre><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="value">"container"</span> <span class="attr">data-aos</span>=<span class="value">"fade-up"</span> <span class="attr">data-aos-delay</span>=<span class="value">"100"</span><span class="tag">&gt;</span>
+  <span class="comment">&lt;!-- conteúdo animado com 100ms de atraso --&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre>
+      </div>
+
+    </div><!-- /Q4 -->
+
+    <!-- Conclusão -->
+    <div class="section-card" style="background: linear-gradient(135deg, #0a2233, #0d9488); color:#fff;">
+      <h2 style="color:#fff; border-bottom-color: rgba(255,255,255,0.3);">Conclusão</h2>
+      <p>
+        Este documento apresentou os conceitos fundamentais de HTML e CSS, demonstrando como essas duas
+        tecnologias trabalham juntas para criar páginas web estruturadas e visualmente atraentes.
+        Através da análise do template <strong>iPortfolio</strong>, foi possível identificar na prática
+        os diferentes tipos de seletores CSS utilizados em projetos reais.
+      </p>
+      <p class="mb-0">
+        O portfólio desenvolvido com base neste template está disponível em:
+        <strong>hrzanni.github.io/portfolio-usp</strong>
+      </p>
+    </div>
+
+  </div><!-- /container -->
+
+  <footer>
+    <p>Hugo Zanni — Sistemas de Informação, USP &nbsp;|&nbsp; Atividade Introdução ao CSS — 2026</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

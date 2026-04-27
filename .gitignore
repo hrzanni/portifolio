@@ -1,0 +1,7 @@
+# Documento da atividade (não precisa subir ao repo do portfolio)
+*.docx
+*.doc
+
+# Sistema
+.DS_Store
+Thumbs.db

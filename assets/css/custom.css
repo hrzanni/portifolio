@@ -1,0 +1,134 @@
+/*--------------------------------------------------------------
+# Customizações do Portfólio — Hugo Zanni
+# Atividade Introdução ao CSS — Web/Mobile USP
+#
+# Alterações realizadas:
+# 1. Paleta de cores principal (accent-color alterado de azul para verde-teal)
+# 2. Tipografia: tamanho de fonte e família do corpo do texto
+# 3. Estilo dos botões e links de contato
+--------------------------------------------------------------*/
+
+/* ----------------------------------------------------------
+   1. ALTERAÇÃO DE CORES — accent-color e variáveis globais
+   Mudança do azul padrão (#149ddd) para verde-teal (#0d9488)
+   ---------------------------------------------------------- */
+:root {
+  --accent-color: #0d9488;          /* verde-teal em vez do azul original */
+  --heading-color: #0f2c3d;         /* azul-escuro mais profundo nos títulos */
+}
+
+/* Sidebar escura com nova cor de fundo */
+.header.dark-background {
+  background: linear-gradient(180deg, #0a2233 0%, #0f2c3d 100%);
+}
+
+/* Barra de progresso das skills */
+.skills .progress .progress-bar {
+  background-color: var(--accent-color);
+}
+
+/* Ícones de seção de contato */
+.contact .info-item i {
+  background: var(--accent-color);
+}
+
+/* ----------------------------------------------------------
+   2. TIPOGRAFIA — tamanho de fonte e espaçamento
+   Body aumentado de padrão para 16.5px, headings de seção
+   com peso mais leve para visual moderno
+   ---------------------------------------------------------- */
+body {
+  font-size: 16.5px;
+  line-height: 1.75;
+}
+
+.section-title h2 {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.section-title h2::after {
+  background-color: var(--accent-color);
+}
+
+.about .content h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* Hero title maior */
+.hero h2 {
+  font-size: 3.5rem;
+  font-weight: 700;
+}
+
+/* ----------------------------------------------------------
+   3. BOTÕES E LINKS — estilo do botão de contato e nav links
+   ---------------------------------------------------------- */
+
+/* Botão "Enviar Mensagem" na seção de contato */
+.btn-contact {
+  display: inline-block;
+  padding: 12px 36px;
+  background-color: var(--accent-color);
+  color: #ffffff;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid var(--accent-color);
+  margin-top: 8px;
+}
+
+.btn-contact:hover {
+  background-color: transparent;
+  color: var(--accent-color);
+}
+
+/* Links sociais na sidebar */
+.social-links a {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.social-links a:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+/* Nav links active e hover com nova cor */
+.navmenu a.active,
+.navmenu a:hover {
+  color: var(--accent-color) !important;
+}
+
+.navmenu a.active i,
+.navmenu a:hover i {
+  color: var(--accent-color);
+}
+
+/* Skills progress bar — borda arredondada */
+.skills .progress-bar-wrap {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skills .progress-bar-wrap .progress-bar {
+  border-radius: 4px;
+}
+
+/* Cards dos projetos — hover com sombra */
+#projects .portfolio-content {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+#projects .portfolio-content:hover {
+  box-shadow: 0 8px 30px rgba(13, 148, 136, 0.2);
+  transform: translateY(-4px);
+}
